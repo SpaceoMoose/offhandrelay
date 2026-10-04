@@ -42,6 +42,12 @@ Right-click it and choose *Send to > Desktop (create shortcut)* for easy access.
 - **Mode:** *Hold* is active while you hold the button. *Toggle* means press once for on and again for off.
 - **Turn off what the original button normally does** stops the button you
   press from also doing its own job in the game.
+- **Thumbstick relay:** tick **While I hold**, pick a button, and choose
+  *Right stick acts as the Left stick*. While you hold that button, your right
+  stick drives the left stick. If your game moves you with the right stick and
+  turns you with the left one, holding the button switches the same thumb from
+  moving to turning. Choose *(always on, no button)* to relay the stick
+  permanently.
 
 Every change is saved immediately, and the driver applies it within a second.
 You don't need to restart SteamVR.
@@ -52,11 +58,12 @@ You don't need to restart SteamVR.
 
 | You press (right hand) | The game sees (left hand) |
 |---|---|
-| **X** (hold) | Left **bumper**, the grab button in most games |
+| **X** (hold) | Left **bumper**, the grab button in most games, **and** the right stick acts as the **left stick** (e.g. turning) |
 | **Y** (hold) | Left **trigger** |
 
 X and Y stop doing anything on the right hand, so leave them unbound in your
-game bindings. Then bind the game's grab action to the **left bumper** and
+game bindings. If you'd rather turn without grabbing, pick a different button
+for the thumbstick relay in the app. Then bind the game's grab action to the **left bumper** and
 its trigger/use action to the **left trigger**, as you normally would.
 
 ## Editing the config by hand
@@ -85,6 +92,22 @@ right /input/x/click -> left /input/bumper/click hold suppress
 right /input/y/click -> left /input/trigger/click hold suppress
 left  /input/dpad_up/click -> right /input/a/click hold keep
 ```
+
+### Stick rules
+
+```
+stick <hand> <stick path> -> <hand> <stick path> [while <hand> <button path>] [suppress|keep]
+```
+
+```
+stick right /input/thumbstick -> left /input/thumbstick while right /input/x/click suppress
+```
+
+The source stick's `x` and `y` are copied to the target stick, and the target's
+`touch` reports as touched while the stick is pushed. With `while`, the relay
+only runs while that button is held, and the button itself is hidden from games.
+Without it, the relay is always on. `suppress` (default) makes the source stick
+read as centered while relaying. `keep` lets it keep working on its own hand too.
 
 ### Finding button names
 
@@ -115,6 +138,8 @@ mod pairs well with it.
 **Half-Life: Alyx:** pick Valve's **"Dual Controllers (Movement on Weapon Hand)"**
 binding, then on the **Interact** tab bind the left Bumper to grab. Movement is
 on the right stick, and gravity gloves work by holding X and flicking the left wrist.
+If its gameplay tab puts turning on the left stick, hold **X** and use the right
+stick to turn (this also closes the left hand).
 
 ## Troubleshooting
 
