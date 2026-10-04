@@ -1,6 +1,7 @@
 # OffHandRelay
 
 **Press buttons on one VR controller using the other one, in every SteamVR game.**
+Includes a small app for choosing which button does what.
 
 OffHandRelay is a small SteamVR driver for players who can move and track
 both hands but can only press buttons with one of them. For example, with a
@@ -27,6 +28,24 @@ SteamVR controller.
 
 To uninstall, quit SteamVR and delete the `offhandrelay` folder.
 
+## Changing the buttons: OffHandRelay Config
+
+Open **`OffHandRelay Config.exe`**, which is in the same `offhandrelay` folder.
+Right-click it and choose *Send to > Desktop (create shortcut)* for easy access.
+
+![OffHandRelay Config](docs/config-app.png)
+
+- **When I press** is the button you press, and **It acts as** is the button the game sees.
+  You can pick any button from the lists or type a path such as `/input/b/click`.
+- **Detect...** lets you skip the list: click it, then press the button on
+  your controller (SteamVR must be running).
+- **Mode:** *Hold* is active while you hold the button. *Toggle* means press once for on and again for off.
+- **Turn off what the original button normally does** stops the button you
+  press from also doing its own job in the game.
+
+Every change is saved immediately, and the driver applies it within a second.
+You don't need to restart SteamVR.
+
 ## Default setup
 
 `offhandrelay.cfg` (in the driver folder) comes with:
@@ -40,9 +59,10 @@ X and Y stop doing anything on the right hand, so leave them unbound in your
 game bindings. Then bind the game's grab action to the **left bumper** and
 its trigger/use action to the **left trigger**, as you normally would.
 
-## Configuring
+## Editing the config by hand
 
-Edit `offhandrelay.cfg` and restart SteamVR. One rule per line:
+The app writes `offhandrelay.cfg`, a plain text file you can also edit
+yourself. Changes apply within a second of saving. One rule per line:
 
 ```
 <source hand> <source path> -> <target hand> <target path> [hold|toggle] [suppress|keep]
@@ -83,7 +103,18 @@ Steam Frame controller buttons (`/input/<name>/click`):
 - **Right:** `a` `b` `x` `y` `menu` `system` `thumbstick` `grip` `bumper` `trigger`
 - **Left:** `dpad_up` `dpad_down` `dpad_left` `dpad_right` `view` `system` `thumbstick` `grip` `bumper` `trigger`
 
-Set `log_presses false` once everything works.
+Set `log_presses false` once everything works (the app's Detect button turns
+it back on when needed).
+
+## Game notes
+
+**Hot Dogs, Horseshoes & Hand Grenades:** bind the left Bumper to
+`grip_button`. The [Accessibility Options](https://thunderstore.io/c/h3vr/p/Okkim/Accessibility_Options/)
+mod pairs well with it.
+
+**Half-Life: Alyx:** pick Valve's **"Dual Controllers (Movement on Weapon Hand)"**
+binding, then on the **Interact** tab bind the left Bumper to grab. Movement is
+on the right stick, and gravity gloves work by holding X and flicking the left wrist.
 
 ## Troubleshooting
 
@@ -104,6 +135,12 @@ scalar components), and keeps a map of every input component per hand. When a
 configured source button changes, it updates the target hand's components
 through the original functions. It adds no devices of its own.
 
+Once a second (from `RunFrame`), the driver checks the config file's
+modification time. When the file changes, it releases every active relay,
+loads the new rules, and syncs them to the buttons' current state. The
+config app saves through a temp file plus an atomic rename, so the driver
+never reads a half-written file.
+
 This is a hook into SteamVR internals, not an official API, so a future
 SteamVR update could break it.
 
@@ -116,15 +153,23 @@ cmake -S . -B build -A x64
 cmake --build build --config Release
 ```
 
-The DLL is copied to `driver/offhandrelay/bin/win64/`, so that folder is ready
-to drop into SteamVR's `drivers` directory.
+The DLL is copied to `driver/offhandrelay/bin/win64/` and the config app to
+`driver/offhandrelay/`, so that folder is ready to drop into SteamVR's
+`drivers` directory. Both are plain C++ (Win32 for the app) and need no runtime.
 
-MinGW cross-compile from Linux:
+### Tests
+
+On Linux or macOS, the same CMake build also produces `fake_vrserver`. It loads
+the real driver into a fake SteamVR with fake controllers and checks relaying,
+suppression, reconnects, toggle mode and live reload:
 
 ```
-x86_64-w64-mingw32-g++-posix -std=c++17 -O2 -shared -static -static-libgcc -static-libstdc++ \
-  -Ithird_party/openvr src/driver.cpp -o driver/offhandrelay/bin/win64/driver_offhandrelay.dll
+cmake -S . -B build && cmake --build build && ctest --test-dir build --output-on-failure
 ```
+
+To cross-compile from Linux with MinGW, use a toolchain file that sets
+`CMAKE_SYSTEM_NAME Windows`, `CMAKE_CXX_COMPILER x86_64-w64-mingw32-g++-posix`
+and `CMAKE_RC_COMPILER x86_64-w64-mingw32-windres`.
 
 Pushing a tag such as `v1.0.0` makes GitHub Actions build the driver and attach
 `OffHandRelay.zip` to the release.
