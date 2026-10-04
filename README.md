@@ -85,16 +85,6 @@ Steam Frame controller buttons (`/input/<name>/click`):
 
 Set `log_presses false` once everything works.
 
-## Game notes
-
-**Hot Dogs, Horseshoes & Hand Grenades:** bind the left Bumper to
-`grip_button`. The [Accessibility Options](https://thunderstore.io/c/h3vr/p/Okkim/Accessibility_Options/)
-mod pairs well with it.
-
-**Half-Life: Alyx:** pick Valve's **"Dual Controllers (Movement on Weapon Hand)"**
-binding, then on the **Interact** tab bind the left Bumper to grab. Movement is
-on the right stick, and gravity gloves work by holding X and flicking the left wrist.
-
 ## Troubleshooting
 
 - **Nothing happens.** Check Manage Add-ons (step 5), then look for
