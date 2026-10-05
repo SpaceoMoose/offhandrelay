@@ -30,18 +30,29 @@ To uninstall, quit SteamVR and delete the `offhandrelay` folder.
 
 ## Changing the buttons: OffHandRelay Config
 
-- **When I press** is the button you press, and **It acts as** is the button the game sees.
-  You can pick any button from the lists or type a path such as `/input/b/click`.
-- **Detect...** lets you skip the list: click it, then press the button on
-  your controller (SteamVR must be running).
-- **Mode:** *Hold* is active while you hold the button. *Toggle* means press once for on and again for off.
-- **Turn off what the original button normally does** stops the button you
-  press from also doing its own job in the game.
-- **Thumbstick relay** lets one stick do two jobs. The default is *Right
-  stick acts as the Left stick*, *Always, except while I hold* right X. With
-  a game's default bindings (left stick moves, right stick turns), your right
-  stick moves you, and holding X makes it turn you. *Only while I hold* does
-  the reverse, and *Always* relays the stick permanently.
+Open **`OffHandRelay Config.exe`**, which is in the same `offhandrelay` folder.
+Right-click it and choose *Send to > Desktop (create shortcut)* for easy access.
+
+![OffHandRelay Config](docs/config-app.png)
+
+- **The header** shows whether SteamVR is running and the driver loaded. If
+  SteamVR is running but the driver isn't, it tells you where to turn it on.
+- **The controller drawing** shows each rule as a colored arc from the button
+  you press to the button it acts as, with the same color as the rule in the
+  list. With *Show live presses* on, buttons light up as you press them in
+  VR. Click a button in the drawing to edit its rule, or to start a new rule
+  from it.
+- **Button rules:** *New rule* adds one, and *Remove rule* (or the Delete key)
+  removes the selected one. Untick a rule to turn it off without deleting it.
+- **Selected rule:** *When I press* is the button you press, and *It acts as*
+  is the button the game sees. Pick from the lists or type a path such as
+  `/input/b/click`. *Detect a press* skips the list: click it, then press the
+  button on your controller. *Hold* is on while you hold the button, and
+  *Toggle* is press once for on, again for off.
+- **Thumbstick** lets one stick do two jobs. The default, *Right stick acts as
+  the left stick, always, except while I hold* right X, means that with a
+  game's default bindings (left stick moves, right stick turns), your right
+  stick moves you and holding X makes it turn you.
 
 Every change is saved immediately, and the driver applies it within a second.
 You don't need to restart SteamVR.
@@ -78,6 +89,7 @@ yourself. Changes apply within a second of saving. One rule per line:
 | `toggle` | Press once = target held down, press again = released |
 | `suppress` | Source button no longer does anything on its own hand (default) |
 | `keep` | Source button also keeps working normally on its own hand |
+| `off` | Rule stays in the file but does nothing (the app's checkbox) |
 
 The target's `/click`, `/touch` and `/value` are all driven together, so games
 that read analog trigger or grip values see a full press.
@@ -124,8 +136,8 @@ Steam Frame controller buttons (`/input/<name>/click`):
 - **Right:** `a` `b` `x` `y` `menu` `system` `thumbstick` `grip` `bumper` `trigger`
 - **Left:** `dpad_up` `dpad_down` `dpad_left` `dpad_right` `view` `system` `thumbstick` `grip` `bumper` `trigger`
 
-Set `log_presses false` once everything works (the app's Detect button turns
-it back on when needed).
+`log_presses` is the app's *Show live presses* setting. The live drawing and
+Detect need it on. Turning it off makes the log smaller, nothing else.
 
 ## Game notes
 
