@@ -42,12 +42,11 @@ Right-click it and choose *Send to > Desktop (create shortcut)* for easy access.
 - **Mode:** *Hold* is active while you hold the button. *Toggle* means press once for on and again for off.
 - **Turn off what the original button normally does** stops the button you
   press from also doing its own job in the game.
-- **Thumbstick relay:** tick **While I hold**, pick a button, and choose
-  *Right stick acts as the Left stick*. While you hold that button, your right
-  stick drives the left stick. If your game moves you with the right stick and
-  turns you with the left one, holding the button switches the same thumb from
-  moving to turning. Choose *(always on, no button)* to relay the stick
-  permanently.
+- **Thumbstick relay** lets one stick do two jobs. The default is *Right
+  stick acts as the Left stick*, *Always, except while I hold* right X. With
+  a game's default bindings (left stick moves, right stick turns), your right
+  stick moves you, and holding X makes it turn you. *Only while I hold* does
+  the reverse, and *Always* relays the stick permanently.
 
 Every change is saved immediately, and the driver applies it within a second.
 You don't need to restart SteamVR.
@@ -58,13 +57,16 @@ You don't need to restart SteamVR.
 
 | You press (right hand) | The game sees (left hand) |
 |---|---|
-| **X** (hold) | Left **bumper**, the grab button in most games, **and** the right stick acts as the **left stick** (e.g. turning) |
+| **Right stick** | The **left stick**, which moves you in most games |
+| **X** (hold) | Left **bumper** (the grab button in most games), **and** the right stick is the right stick again, which turns you |
 | **Y** (hold) | Left **trigger** |
 
-X and Y stop doing anything on the right hand, so leave them unbound in your
-game bindings. If you'd rather turn without grabbing, pick a different button
-for the thumbstick relay in the app. Then bind the game's grab action to the **left bumper** and
-its trigger/use action to the **left trigger**, as you normally would.
+This works with each game's **default bindings**, so there's no need to move
+movement or turning between sticks. Bind the game's left-hand grab to the
+**left bumper** and its trigger/use to the **left trigger** if they aren't
+already. X and Y stop doing anything on the right hand, so leave them unbound.
+If you'd rather turn without grabbing, pick a different button for the
+thumbstick relay in the app.
 
 ## Editing the config by hand
 
@@ -96,17 +98,18 @@ left  /input/dpad_up/click -> right /input/a/click hold keep
 ### Stick rules
 
 ```
-stick <hand> <stick path> -> <hand> <stick path> [while <hand> <button path>] [suppress|keep]
+stick <hand> <stick path> -> <hand> <stick path> [while|unless <hand> <button path>] [suppress|keep]
 ```
 
 ```
-stick right /input/thumbstick -> left /input/thumbstick while right /input/x/click suppress
+stick right /input/thumbstick -> left /input/thumbstick unless right /input/x/click suppress
 ```
 
 The source stick's `x` and `y` are copied to the target stick, and the target's
 `touch` reports as touched while the stick is pushed. With `while`, the relay
-only runs while that button is held, and the button itself is hidden from games.
-Without it, the relay is always on. `suppress` (default) makes the source stick
+only runs while that button is held. With `unless`, it runs all the time
+*except* while that button is held. Either way the button itself is hidden from
+games. Without either, the relay is always on. `suppress` (default) makes the source stick
 read as centered while relaying. `keep` lets it keep working on its own hand too.
 
 ### Finding button names
@@ -135,11 +138,14 @@ it back on when needed).
 `grip_button`. The [Accessibility Options](https://thunderstore.io/c/h3vr/p/Okkim/Accessibility_Options/)
 mod pairs well with it.
 
-**Half-Life: Alyx:** pick Valve's **"Dual Controllers (Movement on Weapon Hand)"**
-binding, then on the **Interact** tab bind the left Bumper to grab. Movement is
-on the right stick, and gravity gloves work by holding X and flicking the left wrist.
-If its gameplay tab puts turning on the left stick, hold **X** and use the right
-stick to turn (this also closes the left hand).
+**Half-Life: Alyx:** use the **default** binding (not "Movement on Weapon Hand"),
+and on the **Interact** tab bind the left Bumper to grab. The right stick moves
+you, and holding X turns you. Gravity gloves work by holding X and flicking the
+left wrist.
+
+**The Walking Dead: Saints & Sinners – Chapter 2:** use the **default** binding.
+Movement only seems to respond to the left controller, which the stick relay
+takes care of. Set *Grab style* to **Hold** in the game's options.
 
 ## Troubleshooting
 
