@@ -30,11 +30,6 @@ To uninstall, quit SteamVR and delete the `offhandrelay` folder.
 
 ## Changing the buttons: OffHandRelay Config
 
-Open **`OffHandRelay Config.exe`**, which is in the same `offhandrelay` folder.
-Right-click it and choose *Send to > Desktop (create shortcut)* for easy access.
-
-![OffHandRelay Config](docs/config-app.png)
-
 - **When I press** is the button you press, and **It acts as** is the button the game sees.
   You can pick any button from the lists or type a path such as `/input/b/click`.
 - **Detect...** lets you skip the list: click it, then press the button on
