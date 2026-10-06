@@ -49,6 +49,10 @@ Right-click it and choose *Send to > Desktop (create shortcut)* for easy access.
   `/input/b/click`. *Detect a press* skips the list: click it, then press the
   button on your controller. *Hold* is on while you hold the button, and
   *Toggle* is press once for on, again for off.
+- **D-pad layer:** hold a button (the right bumper by default), and Y, X, B,
+  A press the left D-pad up, left, right, down instead of doing their usual
+  jobs. The held button keeps working normally. In the drawing, each D-pad
+  button shows the letter that presses it.
 - **Thumbstick** lets one stick do two jobs. The default, *Right stick acts as
   the left stick, always, except while I hold* right X, means that with a
   game's default bindings (left stick moves, right stick turns), your right
@@ -66,6 +70,7 @@ You don't need to restart SteamVR.
 | **Right stick** | The **left stick**, which moves you in most games |
 | **X** (hold) | Left **bumper** (the grab button in most games), **and** the right stick is the right stick again, which turns you |
 | **Y** (hold) | Left **trigger** |
+| **Bumper** (hold) + **Y / X / B / A** | Left **D-pad** up / left / right / down (instead of their usual jobs) |
 
 This works with each game's **default bindings**, so there's no need to move
 movement or turning between sticks. Bind the game's left-hand grab to the
@@ -89,6 +94,7 @@ yourself. Changes apply within a second of saving. One rule per line:
 | `toggle` | Press once = target held down, press again = released |
 | `suppress` | Source button no longer does anything on its own hand (default) |
 | `keep` | Source button also keeps working normally on its own hand |
+| `while <hand> <button>` | A **layer**: the rule only applies to presses made while that button is held, and takes over the source button from rules without `while` for those presses. The held button keeps working normally. |
 | `off` | Rule stays in the file but does nothing (the app's checkbox) |
 
 The target's `/click`, `/touch` and `/value` are all driven together, so games
@@ -100,6 +106,7 @@ Examples:
 right /input/x/click -> left /input/bumper/click hold suppress
 right /input/y/click -> left /input/trigger/click hold suppress
 left  /input/dpad_up/click -> right /input/a/click hold keep
+right /input/x/click -> left /input/dpad_left/click hold suppress while right /input/bumper/click
 ```
 
 ### Stick rules
