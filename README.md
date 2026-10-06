@@ -38,25 +38,25 @@ Right-click it and choose *Send to > Desktop (create shortcut)* for easy access.
 - **The header** shows whether SteamVR is running and the driver loaded. If
   SteamVR is running but the driver isn't, it tells you where to turn it on.
 - **The controller drawing** shows each rule as a colored arc from the button
-  you press to the button it acts as, with the same color as the rule in the
-  list. With *Show live presses* on, buttons light up as you press them in
-  VR. Click a button in the drawing to edit its rule, or to start a new rule
-  from it.
-- **Button rules:** *New rule* adds one, and *Remove rule* (or the Delete key)
-  removes the selected one. Untick a rule to turn it off without deleting it.
-- **Selected rule:** *When I press* is the button you press, and *It acts as*
-  is the button the game sees. Pick from the lists or type a path such as
-  `/input/b/click`. *Detect a press* skips the list: click it, then press the
-  button on your controller. *Hold* is on while you hold the button, and
-  *Toggle* is press once for on, again for off.
-- **D-pad layer:** hold a button (the right bumper by default), and Y, X, B,
-  A press the left D-pad up, left, right, down instead of doing their usual
-  jobs. The held button keeps working normally. In the drawing, each D-pad
-  button shows the letter that presses it.
-- **Thumbstick** lets one stick do two jobs. The default, *Right stick acts as
-  the left stick, always, except while I hold* right X, means that with a
-  game's default bindings (left stick moves, right stick turns), your right
-  stick moves you and holding X makes it turn you.
+  you press to the button it acts as. With *Show live presses* on, buttons
+  light up as you press them in VR. Click a button to edit its rule, or to
+  add one.
+- **Buttons** lists your rules, one sentence each, such as "Right X button acts
+  as Left Bumper". Use **Add**, **Edit** (or double-click) and **Remove**.
+  Untick a rule to turn it off without deleting it.
+- **Sticks and D-pad** has one line for the thumbstick relay and one for the
+  D-pad layer, each with an on/off checkbox and an **Edit** button.
+
+Editing opens a small window with the details. For a button rule, that's the
+button you press and the button it acts as (pick from the list, type a path
+such as `/input/b/click`, or click **Detect a press** and press it on your
+controller), *Hold* or *Toggle*, and whether the original button's own job is
+turned off. For the thumbstick relay, it's which stick acts as which and when.
+For the D-pad layer, it's which button you hold.
+
+The defaults: the right stick moves you (as the left stick) except while you
+hold right X, when it turns you. Holding the right bumper makes Y, X, B, A
+press the left D-pad up, left, right, down, and the bumper itself keeps working.
 
 Every change is saved immediately, and the driver applies it within a second.
 You don't need to restart SteamVR.
