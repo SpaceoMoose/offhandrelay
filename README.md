@@ -54,8 +54,8 @@ controller), *Hold* or *Toggle*, and whether the original button's own job is
 turned off. For the thumbstick relay, it's which stick acts as which and when.
 For the D-pad layer, it's which button you hold.
 
-The defaults: the right stick moves you (as the left stick) except while you
-hold right X, when it turns you. Holding the right bumper makes Y, X, B, A
+The defaults: the right stick works normally (turning, in most games), and
+while you hold right X it acts as the left stick (moving). Holding the right bumper makes Y, X, B, A
 press the left D-pad up, left, right, down, and the bumper itself keeps working.
 
 Every change is saved immediately, and the driver applies it within a second.
@@ -67,8 +67,8 @@ You don't need to restart SteamVR.
 
 | You press (right hand) | The game sees (left hand) |
 |---|---|
-| **Right stick** | The **left stick**, which moves you in most games |
-| **X** (hold) | Left **bumper** (the grab button in most games), **and** the right stick is the right stick again, which turns you |
+| **Right stick** | The right stick, as normal (turning, in most games) |
+| **X** (hold) | Left **bumper** (the grab button in most games), **and** the right stick acts as the **left stick** (moving) |
 | **Y** (hold) | Left **trigger** |
 | **Bumper** (hold) + **Y / X / B / A** | Left **D-pad** up / left / right / down (instead of their usual jobs) |
 
@@ -76,7 +76,7 @@ This works with each game's **default bindings**, so there's no need to move
 movement or turning between sticks. Bind the game's left-hand grab to the
 **left bumper** and its trigger/use to the **left trigger** if they aren't
 already. X and Y stop doing anything on the right hand, so leave them unbound.
-If you'd rather turn without grabbing, pick a different button for the
+If you'd rather move without grabbing, pick a different button for the
 thumbstick relay in the app.
 
 ## Editing the config by hand
@@ -116,7 +116,7 @@ stick <hand> <stick path> -> <hand> <stick path> [while|unless <hand> <button pa
 ```
 
 ```
-stick right /input/thumbstick -> left /input/thumbstick unless right /input/x/click suppress
+stick right /input/thumbstick -> left /input/thumbstick while right /input/x/click suppress
 ```
 
 The source stick's `x` and `y` are copied to the target stick, and the target's
@@ -153,8 +153,8 @@ Detect need it on. Turning it off makes the log smaller, nothing else.
 mod pairs well with it.
 
 **Half-Life: Alyx:** use the **default** binding (not "Movement on Weapon Hand"),
-and on the **Interact** tab bind the left Bumper to grab. The right stick moves
-you, and holding X turns you. Gravity gloves work by holding X and flicking the
+and on the **Interact** tab bind the left Bumper to grab. The right stick turns
+you, and holding X makes it move you. Gravity gloves work by holding X and flicking the
 left wrist.
 
 **The Walking Dead: Saints & Sinners – Chapter 2:** use the **default** binding.
