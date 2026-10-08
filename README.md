@@ -46,6 +46,9 @@ Right-click it and choose *Send to > Desktop (create shortcut)* for easy access.
   Untick a rule to turn it off without deleting it.
 - **Sticks and D-pad** has one line for the thumbstick relay and one for the
   D-pad layer, each with an on/off checkbox and an **Edit** button.
+- **Open SteamVR bindings** opens SteamVR's controller bindings screen in your
+  browser (SteamVR must be running), for changing what each game does with
+  each button.
 
 Editing opens a small window with the details. For a button rule, that's the
 button you press and the button it acts as (pick from the list, type a path
@@ -55,7 +58,7 @@ turned off. For the thumbstick relay, it's which stick acts as which and when.
 For the D-pad layer, it's which button you hold.
 
 The defaults: the right stick works normally (turning, in most games), and
-while you hold right X it acts as the left stick (moving). Holding the right bumper makes Y, X, B, A
+while you hold the right bumper it acts as the left stick (moving). Holding the right bumper makes Y, X, B, A
 press the left D-pad up, left, right, down, and the bumper itself keeps working.
 
 Every change is saved immediately, and the driver applies it within a second.
@@ -68,16 +71,18 @@ You don't need to restart SteamVR.
 | You press (right hand) | The game sees (left hand) |
 |---|---|
 | **Right stick** | The right stick, as normal (turning, in most games) |
-| **X** (hold) | Left **bumper** (the grab button in most games), **and** the right stick acts as the **left stick** (moving) |
+| **X** (hold) | Left **bumper** (the grab button in most games) |
 | **Y** (hold) | Left **trigger** |
+| **Bumper** (hold) + **right stick** | The **left stick** (moving). The bumper still does its own job too. |
 | **Bumper** (hold) + **Y / X / B / A** | Left **D-pad** up / left / right / down (instead of their usual jobs) |
 
 This works with each game's **default bindings**, so there's no need to move
 movement or turning between sticks. Bind the game's left-hand grab to the
 **left bumper** and its trigger/use to the **left trigger** if they aren't
 already. X and Y stop doing anything on the right hand, so leave them unbound.
-If you'd rather move without grabbing, pick a different button for the
-thumbstick relay in the app.
+The bumper still reaches the game while you hold it, so in games where it
+grabs, your right hand closes while you move. Pick a different button for the
+thumbstick relay in the app if that gets in the way.
 
 ## Editing the config by hand
 
@@ -116,14 +121,14 @@ stick <hand> <stick path> -> <hand> <stick path> [while|unless <hand> <button pa
 ```
 
 ```
-stick right /input/thumbstick -> left /input/thumbstick while right /input/x/click suppress
+stick right /input/thumbstick -> left /input/thumbstick while right /input/bumper/click suppress keep_button
 ```
 
 The source stick's `x` and `y` are copied to the target stick, and the target's
 `touch` reports as touched while the stick is pushed. With `while`, the relay
 only runs while that button is held. With `unless`, it runs all the time
 *except* while that button is held. Either way the button itself is hidden from
-games. Without either, the relay is always on. `suppress` (default) makes the source stick
+games, unless you add `keep_button`. Without either, the relay is always on. `suppress` (default) makes the source stick
 read as centered while relaying. `keep` lets it keep working on its own hand too.
 
 ### Finding button names
@@ -154,7 +159,7 @@ mod pairs well with it.
 
 **Half-Life: Alyx:** use the **default** binding (not "Movement on Weapon Hand"),
 and on the **Interact** tab bind the left Bumper to grab. The right stick turns
-you, and holding X makes it move you. Gravity gloves work by holding X and flicking the
+you, and holding the right bumper makes it move you. Gravity gloves work by holding X and flicking the
 left wrist.
 
 **The Walking Dead: Saints & Sinners – Chapter 2:** use the **default** binding.
